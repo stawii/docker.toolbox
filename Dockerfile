@@ -59,6 +59,7 @@ RUN yum -y install \
       iproute \
       iptables \
       net-tools \
+      nmap-ncat \
       python3 \
       python3-pip \
       strace \
