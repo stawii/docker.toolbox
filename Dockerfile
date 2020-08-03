@@ -59,6 +59,7 @@ RUN yum -y install \
       iperf3 \
       iproute \
       iptables \
+      less \
       net-tools \
       nmap-ncat \
       python3 \
