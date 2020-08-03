@@ -66,6 +66,7 @@ RUN yum -y install \
       python3 \
       python3-pip \
       strace \
+      unzip \
     && yum clean all \
     && rm -rf /var/cache/yum /var/tmp/* /tmp/*
 
