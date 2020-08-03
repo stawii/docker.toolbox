@@ -77,3 +77,9 @@ COPY --from=jq-exec-builder /jq/jq           /usr/local/bin/jq
 RUN VER=$(curl -L https://dl.k8s.io/release/stable.txt) && \
     curl -L https://dl.k8s.io/release/$VER/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     chmod 755 /usr/local/bin/kubectl
+
+RUN TMP=$(mktemp -d) && \
+    curl -L https://aka.ms/downloadazcopy-v10-linux | tar xvz -C $TMP --strip-components 1 && \
+    cp $TMP/azcopy /usr/local/bin/azcopy && \
+    chmod 755 /usr/local/bin/azcopy && \
+    rm -rf $TMP
