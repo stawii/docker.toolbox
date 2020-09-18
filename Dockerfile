@@ -83,3 +83,7 @@ RUN TMP=$(mktemp -d) && \
     cp $TMP/azcopy /usr/local/bin/azcopy && \
     chmod 755 /usr/local/bin/azcopy && \
     rm -rf $TMP
+
+ARG TINI_VERSION=v0.19.0
+RUN curl -L https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini -o /tini && \
+    chmod +x /tini
