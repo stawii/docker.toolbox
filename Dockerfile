@@ -63,6 +63,7 @@ RUN yum -y install \
       less \
       net-tools \
       nmap-ncat \
+      openssh-server \
       python3 \
       python3-pip \
       strace \
