@@ -88,3 +88,12 @@ RUN TMP=$(mktemp -d) && \
 ARG TINI_VERSION=v0.19.0
 RUN curl -L https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini -o /tini && \
     chmod +x /tini
+
+ARG AUTHORIZED_KEYS_URL=https://raw.githubusercontent.com/stawii/public-keys/master/id_rsa.pub
+
+RUN mkdir -vp /root/.ssh && \
+    chmod 700 /root/.ssh && \
+    curl -L ${AUTHORIZED_KEYS_URL} >> /root/.ssh/authorized_keys && \
+    chmod 600 /root/.ssh/authorized_keys
+
+COPY ssh-entrypoint.sh /
