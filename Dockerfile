@@ -56,6 +56,7 @@ RUN curl -L https://download.docker.com/linux/centos/docker-ce.repo \
 RUN yum -y install \
       bind-utils \
       docker-ce-cli \
+      git \
       iperf3 \
       iproute \
       iptables \
