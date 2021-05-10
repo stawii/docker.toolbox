@@ -72,6 +72,10 @@ RUN yum -y install \
     && yum clean all \
     && rm -rf /var/cache/yum /var/tmp/* /tmp/*
 
+RUN pip3 install \
+      awscli \
+    && rm -rf /root/.cache/pip
+
 COPY --from=confd-builder   /confd/bin/confd /usr/local/bin/confd
 COPY --from=su-exec-builder /su-exec/su-exec /usr/local/bin/su-exec
 COPY --from=jq-exec-builder /jq/jq           /usr/local/bin/jq
