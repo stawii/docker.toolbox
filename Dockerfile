@@ -14,11 +14,15 @@ FROM golang:1 as confd-builder
 
 ARG CONFD_VERSION=v0.16.0
 
-RUN go get github.com/kelseyhightower/confd
-WORKDIR /go/src/github.com/kelseyhightower/confd
-RUN ln -s $PWD /confd
-RUN git checkout $CONFD_VERSION
-RUN make
+# RUN go get github.com/kelseyhightower/confd
+# WORKDIR /go/src/github.com/kelseyhightower/confd
+# RUN ln -s $PWD /confd
+# RUN git checkout $CONFD_VERSION
+# RUN make
+
+RUN mkdir -p /confd/bin
+RUN curl -L https://github.com/kelseyhightower/confd/releases/download/${CONFD_VERSION}/confd-${CONFD_VERSION#v}-linux-amd64 -o /confd/bin/confd
+RUN chmod +x /confd/bin/confd
 
 
 ####################
@@ -95,10 +99,12 @@ RUN curl -L https://github.com/krallin/tini/releases/download/${TINI_VERSION}/ti
     chmod +x /tini
 
 ARG AUTHORIZED_KEYS_URL=https://raw.githubusercontent.com/stawii/public-keys/master/id_rsa.pub
-
 RUN mkdir -vp /root/.ssh && \
     chmod 700 /root/.ssh && \
     curl -L ${AUTHORIZED_KEYS_URL} >> /root/.ssh/authorized_keys && \
     chmod 600 /root/.ssh/authorized_keys
 
-COPY ssh-entrypoint.sh /
+ENV SIMPLE_WEBROOT /srv/webroot
+RUN mkdir -vp $SIMPLE_WEBROOT
+
+COPY *-entrypoint.sh /
