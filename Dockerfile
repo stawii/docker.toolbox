@@ -54,10 +54,10 @@ RUN make LDFLAGS=-all-static
 
 FROM $CENTOS_BASE
 
-RUN curl -L https://download.docker.com/linux/centos/docker-ce.repo \
-      -o /etc/yum.repos.d/docker-ce.repo
+COPY *.repo /etc/yum.repos.d/
 
 RUN yum -y install \
+      azure-cli \
       bind-utils \
       docker-ce-cli \
       git \
