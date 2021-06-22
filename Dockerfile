@@ -66,6 +66,7 @@ RUN yum -y install \
       iptables \
       keyutils \
       less \
+      make \
       net-tools \
       nmap-ncat \
       openssh-server \
