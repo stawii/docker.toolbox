@@ -3,4 +3,4 @@
 [ "$$" -eq 1 ] && exec /tini -- "$0" "$@"
 
 cd "${SIMPLE_WEBROOT?}" || exit 1
-exec python -m SimpleHTTPServer
+exec python3 -m http.server
