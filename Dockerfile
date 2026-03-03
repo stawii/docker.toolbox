@@ -6,15 +6,17 @@
 
 ## main image
 
-FROM debian:12
+FROM debian:13
 
-RUN apt update \
-    && apt install -y \
+RUN apt update && apt install --yes --no-install-recommends \
+    bash-completion \
     bind9-dnsutils \
+    ca-certificates \
     colordiff \
     coreutils \
     curl \
     direnv \
+    docker-cli \
     fdupes \
     file \
     fswatch \
@@ -29,6 +31,8 @@ RUN apt update \
     jq \
     keyutils \
     less \
+    locales \
+    lsof \
     make \
     man \
     mc \
@@ -37,15 +41,19 @@ RUN apt update \
     ncdu \
     net-tools \
     netcat-openbsd \
+    nftables \
     openssh-client \
     openssh-server \
     openssl \
+    patch \
     procps \
+    psmisc \
     pv \
     pwgen \
     python3 python3-venv \
     redis-tools \
     socat \
+    sqlite3 \
     squashfs-tools \
     strace \
     tini \
@@ -55,17 +63,17 @@ RUN apt update \
     util-linux \
     vim \
     wget \
+    xxd \
     yq \
     zip unzip \
     && pwd
 
-# TODO: docker-ce-cli
+ARG ASDF_VERSION=0.18.0
+RUN curl -L "https://github.com/asdf-vm/asdf/releases/download/v${ASDF_VERSION}/asdf-v${ASDF_VERSION}-linux-amd64.tar.gz" \
+    | tar xzv -C /usr/bin/ \
+    && asdf version
 
-RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf
-RUN /opt/asdf/bin/asdf update
-COPY asdf-bash.sh /etc/profile.d/asdf.sh
-
-ENV SIMPLE_WEBROOT /srv/webroot
+ENV SIMPLE_WEBROOT=/srv/webroot
 RUN mkdir -vp $SIMPLE_WEBROOT
 
 COPY *-entrypoint.sh /
