@@ -9,6 +9,7 @@
 FROM debian:13
 
 RUN apt update && apt install --yes --no-install-recommends \
+    age \
     bash-completion \
     bind9-dnsutils \
     ca-certificates \
@@ -71,9 +72,12 @@ RUN apt update && apt install --yes --no-install-recommends \
 ARG ASDF_VERSION=0.18.0
 RUN curl -L "https://github.com/asdf-vm/asdf/releases/download/v${ASDF_VERSION}/asdf-v${ASDF_VERSION}-linux-amd64.tar.gz" \
     | tar xzv -C /usr/bin/ \
+    && echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.bashrc \
     && asdf version
 
 ENV SIMPLE_WEBROOT=/srv/webroot
 RUN mkdir -vp $SIMPLE_WEBROOT
 
 COPY *-entrypoint.sh /
+
+WORKDIR /root
