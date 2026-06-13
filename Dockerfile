@@ -21,6 +21,7 @@ RUN apt update && apt install --yes --no-install-recommends \
     fdupes \
     file \
     fswatch \
+    fzf \
     git \
     gnupg \
     htop \
@@ -56,6 +57,7 @@ RUN apt update && apt install --yes --no-install-recommends \
     socat \
     sqlite3 \
     squashfs-tools \
+    stow \
     strace \
     tini \
     tmux \
