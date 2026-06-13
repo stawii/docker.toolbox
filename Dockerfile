@@ -69,9 +69,9 @@ RUN apt update && apt install --yes --no-install-recommends \
     xxd \
     yq \
     zip unzip \
-    && pwd
+    && rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
-ARG ASDF_VERSION=0.18.0
+ARG ASDF_VERSION=0.19.0
 RUN curl -L "https://github.com/asdf-vm/asdf/releases/download/v${ASDF_VERSION}/asdf-v${ASDF_VERSION}-linux-amd64.tar.gz" \
     | tar xzv -C /usr/bin/ \
     && echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.bashrc \
